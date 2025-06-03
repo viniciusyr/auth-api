@@ -8,6 +8,10 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
+
+import java.io.Serial;
+import java.io.Serializable;
 import java.time.Instant;
 import java.util.UUID;
 
@@ -17,19 +21,22 @@ import java.util.UUID;
 @Setter
 @Entity
 @Table(name="TB_USERS")
-public class UserModel{
+public class UserModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
     private String login;
     private String password;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "user_role")
     private UserRole role;
 
-    @Timestamp
+    @CreationTimestamp
     private Instant createdOn;
 
-    public UserModel(@NotBlank String login, @NotBlank String password, UserRole role, Instant createdOn) {
+    public UserModel(String login, String password, UserRole role, Instant createdOn) {
         this.login = login;
         this.password = password;
         this.role = role;

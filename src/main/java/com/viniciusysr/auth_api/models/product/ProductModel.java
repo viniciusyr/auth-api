@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -23,6 +24,8 @@ public class ProductModel {
     private UUID id;
     private String name;
     private BigDecimal price;
+
+    @CreationTimestamp
     private Instant createdOn;
 
     public ProductModel(String name, BigDecimal price, Instant createdOn) {
